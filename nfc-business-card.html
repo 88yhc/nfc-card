@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YH代驾服务</title>
+    <style>
+        :root {
+            --primary-color: #7DF9FF;
+            --bg-dark: #0B1121;
+            --bg-card: rgba(13, 21, 43, 0.9);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 15px;
+            background: var(--bg-dark);
+            min-height: 100vh;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            background: var(--bg-card);
+            width: 100%;
+            max-width: 360px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(125, 249, 255, 0.1);
+            border: 1px solid rgba(125, 249, 255, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(125, 249, 255, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin: 0;
+            color: var(--primary-color);
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            margin-top: 8px;
+            color: rgba(125, 249, 255, 0.8);
+        }
+
+        .qr-section {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .qr-code {
+            text-align: center;
+            padding: 15px;
+            background: rgba(125, 249, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(125, 249, 255, 0.2);
+        }
+
+        .qr-code img {
+            width: 160px;
+            height: 160px;
+            border-radius: 8px;
+        }
+
+        .qr-code p {
+            margin: 10px 0 0;
+            color: var(--primary-color);
+            font-size: 0.9em;
+        }
+
+        .action-buttons {
+            display: grid;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .action-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-dark);
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 500;
+            border: 1px solid rgba(125, 249, 255, 0.3);
+            cursor: pointer;
+        }
+
+        .action-button:hover {
+            background: rgba(125, 249, 255, 0.1);
+        }
+
+        @media (max-width: 360px) {
+            .card {
+                padding: 15px;
+            }
+
+            .qr-code img {
+                width: 140px;
+                height: 140px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <h1>YH</h1>
+            <div class="subtitle">代驾服务</div>
+        </div>
+        
+        <div class="qr-section">
+            <div class="qr-code">
+                <img src="https://i.imgur.com/qskFYJB.jpg" alt="微信二维码">
+                <p>微信扫码添加</p>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0AVERSION%3A3.0%0AFN%3AYH%28代驾%29%0ATEL%3A%2B60146209298%0AEND%3AVCARD" download="YH-代驾.vcf" class="action-button">
+                保存联系方式
+            </a>
+            <a href="https://wa.me/+60146209298" class="action-button" target="_blank">
+                WhatsApp 联系
+            </a>
+            <button onclick="shareLocation()" class="action-button">
+                分享位置
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function shareLocation() {
+            if (!navigator.geolocation) {
+                alert('您的浏览器不支持位置服务');
+                return;
+            }
+            
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    const { latitude, longitude } = position.coords;
+                    window.open(`https://www.google.com/maps?q=${latitude},${longitude}`, '_blank');
+                },
+                () => alert('无法获取位置信息，请确保已允许位置权限')
+            );
+        }
+    </script>
+</body>
+</html>
